@@ -1,0 +1,33 @@
+
+<ion-view view-title="History">
+        <ion-content class="padding">
+          <div class="list">
+          <label class="item item-input">
+              <span class="input-label">Mobile Number</span>
+              <input ng-model="newUser.moblieNumber" type="text">
+            </label>
+            <label class="item item-input">
+              <span class="input-label">First Name</span>
+              <input ng-model="newUser.firstName" type="text">
+            </label>
+            <label class="item item-input">
+              <span class="input-label">Last Name</span>
+              <input ng-model="newUser.lastName" type="text">
+            </label>
+            <label class="item item-input">
+              <span class="input-label">Email</span>
+              <input ng-model="newUser.email" type="text">
+            </label>
+             <label class="item item-input">
+              <span class="input-label">Password</span>
+              <input ng-model="newUser.password" type="text">
+            </label>
+             <label class="item item-input">
+              <span class="input-label">Confirm Password</span>
+              <input ng-model="newUser.repassword" type="text">
+            </label>
+            <button class="button button-full button-calm" ng-click="createUser()">Create</button>
+          </div>
+        </ion-content>
+      </ion-view>
+   
