@@ -1,0 +1,24 @@
+<ion-view view-title="Payments" >
+  <ion-content class="padding">     
+   <div class="list list-inset">
+          <label class="item item-input"> 
+              <span class="input-label">Name</span> {{order.username}}
+          </label>
+          <label class="item item-input">
+              <span class="input-label">Mobile Number</span> {{order.moblieNumber}}
+            </label>
+            <label class="item item-input">
+              <span class="input-label">Quantity</span> {{order.quantity}}
+            </label><label class="item item-input">
+              <span class="input-label">Location</span> {{order.location}}
+            </label>
+               
+      </div>
+		  <div class="button-bar">
+		  <a class="button button-calm" href="#/tab/paypal"> <i class=" icon ion-android-send "></i> Pay with Pay Pal</a>
+		  <a class="button button-calm "><i class=" icon ion-forward"></i> Pay with card</a>
+		 </div> 
+  </ion-content>  
+</ion-view>
+
+    
