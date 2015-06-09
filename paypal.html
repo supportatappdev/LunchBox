@@ -1,0 +1,35 @@
+<ion-view view-title="PayPal" >  
+  <ion-content class="padding">   
+  <!-- PayPal Logo -->
+      <div class="list list-inset">
+          <label class="item item-input">   
+              <span class="input-label">My Total</span>
+              <input ng-model="order.total"  type="text">
+          </label>
+          <label class="item item-input">   
+           <a href="https://www.paypal.com/webapps/mpp/paypal-popup" title="How PayPal Works" 
+			  onclick="javascript:window.open('https://www.paypal.com/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700'); return false;"><img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" border="0" alt="PayPal Acceptance Mark"></a>
+		  </label>
+          <label class="item item-input">   
+              <span class="input-label">Number</span>
+              <input ng-model="order.number" placeholder="Card Number" type="number">
+          </label>  
+          <label class="item item-input">
+              <span class="input-label">Expiry</span>
+              <input ng-model="order.month" placeholder="Month" type="number">
+              <input ng-model="order.year" placeholder="Year" type="number">
+            </label>
+            <label class="item item-input">
+              <span class="input-label">CVV</span>
+              <input ng-model="order.cvv" placeholder="CVV" type="number">
+            </label>
+          
+      </div> 
+      <div class="button-bar">
+		  <button class="button button-calm"  ng-click="showAlert()"> 
+		  <i class="icon ion-ios-checkmark-outline"></i>  Proceed  </button>  
+		 </div> 
+  </ion-content>  
+</ion-view>
+ 
+    
