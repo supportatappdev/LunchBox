@@ -1,21 +1,20 @@
 <ion-view view-title="Order" >  
-  <ion-content class="padding">   
+  <ion-content class="padding" ng-controller='OrderCtrl'>   
       <div class="list list-inset">
       <div class="item item-image">
-       <img class="full-image"      
-      src="http://kitchenplatter.com/blog/wp-content/uploads/2014/12/mutton-biryani.jpg">
+       <img class="full-image" src="http://kitchenplatter.com/blog/wp-content/uploads/2014/12/mutton-biryani.jpg">
       </div>  
           <label class="item item-input">   
               <span class="input-label"><!-- <i class="icon ion-person"></i> --> Name 1234</span>
-              <input ng-model="order.username" placeholder="User Name" type="text">
+              <input ng-model="order.username" placeholder="User Name" type="text" ng-required="true">
           </label>
           <label class="item item-input">
               <span class="input-label"><!-- <i class="icon ion-iphone"></i> --> Mobile Number</span>
-              <input ng-model="order.moblieNumber"  placeholder="Mobile Number" type="tel">
+              <input ng-model="order.moblieNumber"  placeholder="Mobile Number" type="tel" ng-required="true">
             </label> 
             <label class="item item-input">
               <span class="input-label"><!-- <i class="icon ion-at"></i> --> Quantity</span>
-              <input ng-model="order.quantity"  placeholder="Quantity" type="number">
+              <input ng-model="order.quantity"  placeholder="Quantity" type="number" ng-required="true">
             </label>
             <div class="item item-input item-select">
             <div class="input-label"> 
@@ -32,7 +31,7 @@
                
       </div> 
       <div class="button-bar">
-		  <a class="button button-calm" href="#/tab/payment"> <i class=" icon ion-cash "></i> Pay Now</a>
+		  <a class="button button-calm" href="#/tab/payment" ng-click="payNow()"> <i class=" icon ion-cash "></i> Pay Now</a>
 		  <a class="button button-calm "><i class=" icon ion-forward"></i> Pay Later</a>
 		 </div> 
   </ion-content>  
