@@ -1,4 +1,5 @@
-angular.module('starter.controllers', [])
+
+angular.module('starter')
 
 .controller('LoginCtrl', function($scope,$location) {
 	$scope.data = {};
@@ -10,21 +11,52 @@ angular.module('starter.controllers', [])
       }
       
 })
-.controller('OrderCtrl', function($scope,$location) {
-	$scope.payments  =  function() {
-		$location.path("/tab/payment");
+.controller('OrderCtrl', function($scope,$location,OrderService,$state,$rootScope,$ionicPopup) {
+   
+  
+    $scope.payNow  =  function() {
+      
+      if(validationForm($scope.order,$ionicPopup)){
+         var operation = 'INSERT';
+         var params = {'ds':'lunchBoxOrderRef','operation':operation,
+                'data':{
+                    'CUST_NAME':$scope.order.username,
+                    'MOBILE_NO':$scope.order.moblieNumber,
+                    'QUANTITY':$scope.order.quantity,
+                    'ITEMTYPE':2,
+                    'PAYMENT_MODE':3,
+                    'PAYMENT_STATUS':4,
+                    'LOCATION':$scope.order.location,
+                    
+                    }
+                };
+         
+          OrderService.save({'method':'update'},params , function(result){
+         
+          if (result.status === "E") {
+             showMessage("Problem Occured",$ionicPopup); 
+          
+          } else {
+               var orderData=$scope.order;
+               $scope.order="";
+               $state.go('tab.payment',{order:orderData});
+              
+          }
+      });
+   
+        
+    }   
+	 
 	}
+
 }) 
-.controller('PaymentCtrl', function($scope) {
+.controller('PaymentCtrl', function($scope,$stateParams) {
 	
-	
+	$scope.order= $stateParams.order;
 }) 
 .controller('PayPalCtrl', function($scope,$location,$state,$ionicPopup) {
-	//PayPalCtrl
- $scope.payment = function() {  
-	 $state.go("tab.order"); 
- }
-    
+
+ 
   // Triggered on a button click, or some other target
 $scope.showPopup = function() {
   $scope.data = {}
@@ -74,14 +106,25 @@ $scope.showPopup = function() {
 
  // An alert dialog 
  $scope.showAlert = function() {
+     
+   if(cardDataValidation($scope.order,$ionicPopup)){
+       
    var alertPopup = $ionicPopup.alert({
     title: 'Order Confirmation', 
-     template: 'Thanks for choosing LunchBox.  Your order ref# is:332332'
+    template: 'Thanks for choosing LunchBox.  Your order ref# is:332332'
    });
    alertPopup.then(function(res) {
-     console.log('Thank you for not eating my delicious ice cream cone');
+           if(res){
+            
+             $state.go('tab.order');   
+            }
+     
    });
+   
+   }
  };
+ 
+
 })
  .controller('HistoryCtrl', function($scope,$location,$state) {
 		//PayPalCtrl
@@ -94,3 +137,84 @@ $scope.showPopup = function() {
     enableFriends: true
   };
 });
+
+
+function showMessage(message,popup){
+    popup.alert({
+    title: "", 
+    template: "<font color='red'>"+message+"</font>"
+   });
+}
+
+ //order form validations
+function  validationForm(order,popup){
+    var isvalid=true;
+    
+    if(order){
+   
+    if(!order.username){
+        showMessage("Please enter username",popup);
+        isvalid=false;
+        return isvalid;
+      }
+       if(!order.username){
+        showMessage("Please enter user name",popup);
+        isvalid=false;
+        return isvalid;
+      }
+      if(!order.moblieNumber){
+        showMessage("Please enter moblie number",popup);
+        isvalid=false;
+        return isvalid;
+      }
+      if(!order.quantity){
+        showMessage("Please enter quantity",popup);
+        isvalid=false;
+        return isvalid;
+      }
+      if(!order.location){
+        showMessage("Please enter location",popup);
+        isvalid=false;
+        return isvalid;
+      }
+    }else{
+       showMessage("Please enter order details",popup);
+        isvalid=false;
+        return isvalid; 
+    }
+    
+    return isvalid;
+}
+// card details validations
+function cardDataValidation(order,popup){
+     var isvalid=true;
+     if(order){
+     if(!order.number){
+        showMessage("Please enter card number",popup) ;
+        isvalid=false;
+        return isvalid;
+      }
+       if(!order.month){
+        showMessage("Please enter expiry month",popup) ;
+        isvalid=false;
+        return isvalid;
+      }
+        if(!order.year){
+        showMessage("Please enter expiry year",popup) ;
+        isvalid=false;
+        return isvalid;
+      }
+      
+       if(!order.cvv){
+        showMessage("Please enter CVV",popup) ;
+        isvalid=false;
+        return isvalid;
+      }
+      
+   }else{
+        showMessage("Please enter card details",popup) ;
+        isvalid=false;
+        return isvalid; 
+    }
+    return isvalid;
+}
